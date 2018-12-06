@@ -4,6 +4,16 @@
 from openpyxl import Workbook
 from openpyxl import load_workbook
 import re
+import os
+
+def filename(file_dir):
+    L=[]
+    for root, dirs, files in os.walk(file_dir):
+        for file in files:
+            if os.path.splitext(file)[1] == '.xlsx':
+                L.append(os.path.join(root, file))
+    
+    return L
 
 def replace_rule(text):
     
@@ -40,11 +50,16 @@ def replace_rule(text):
     text = re.sub(r"日期","Date ",text)
     text = re.sub(r"打卡地点","Punch wifi ",text)
     text = re.sub(r"备注","Remarks ",text)
+    text = re.sub(r"早退","Early leave ",text)
     
     return text
     
 
-def_filename = "file/punch_report_20181105-20181110.xlsx"
+def_filename = filename('file/')[0] #"file/上下班打卡_日报_20181116-20181122.xlsx"
+
+new_def_filename = 'file/translated_punch_report_' + def_filename[14:] #new file name generator
+
+# print(new_def_filename)
 
 wb = load_workbook(def_filename) #read the excel
 
@@ -66,6 +81,6 @@ for row in ws2.rows:
 
 
 
-wb.save("file/translated_punch_report_20181105-20181110.xlsx")
+wb.save(new_def_filename)
         
 
