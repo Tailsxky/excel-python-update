@@ -22,6 +22,7 @@ def replace_rule(text):
     text = re.sub(r"时间异常","Abnormal time ",text)
     text = re.sub(r"校准状态","Status details ",text)
     text = re.sub(r"打卡类型","Punch in/out ",text)
+    text = re.sub(r"无加班审批单","OT ",text)
     text = re.sub(r"打卡时间","Punch time ",text)
     text = re.sub(r"统计时间","Punch time ",text)
     text = re.sub(r"制表时间","Table generate time ",text)
@@ -59,7 +60,7 @@ def_filename = filename('file/')[0] #"file/上下班打卡_日报_20181116-20181
 
 new_def_filename = 'file/translated_punch_report_' + def_filename[14:] #new file name generator
 
-# print(new_def_filename)
+#print(new_def_filename)
 
 wb = load_workbook(def_filename) #read the excel
 
